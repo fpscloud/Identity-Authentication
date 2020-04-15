@@ -36,7 +36,7 @@
 
 **Tenant Admin User Authentication**
 
-**Resource URL** - `#POST` - https://authservice.fpsinc.com/api/v2/tenant/user/login
+**Resource URL** - `#POST` - https://authservice.fpsinc.com/api/v2/user/login
 
 **Description:** The user must authenticate to generate a token to access Tenant Configuration API's.
 
@@ -71,7 +71,7 @@
  
   **Code:** 200 
   
-    **Content:** 
+    **Response:** 
     `{  "status":  "Success",  "message":  "Tenant created successfully",  "data":  {  "tenant_id":  "025041000001-6dbd-11ea-806b-025041000001",  "tenant_name":  "FPS"  }  }`
 
 * **Error Responses**
@@ -81,11 +81,11 @@
 	|---	|---	|---	|
 	|  400|    Bad / Not a valid request|`{  "errors":  {  "tenant_name":  [  "The tenant name has already been taken."  ]  }  }`|   	
 
-**Tenant Configuration**
+**Identity Service Passcode Configuration**
 
-**Resource URL** - `#POST` - https://authservice.fpsinc.com/api/v2/tenant/{tenant_id}/config
+**Resource URL** - `#POST` - https://authservice.fpsinc.com/api/v2/{tenant_id}/identity/passcode/config
 
-**Description:** Create new Configuration details for the tenant, that includes Pass key expiry time and Pass Phrase mode, method & length. The Phrase can be set to system or manual. If set to system, auto-generated Pass Phrase will be returned while calling the Trust API.
+**Description:** Create new pass code configuration details for the Identity service , that includes Pass key expiry time and Pass Phrase mode, method & length. The Phrase can be set to system or manual. If set to system, auto-generated Pass Phrase will be returned while calling the Trust API.
   
 * **Sample Input:**
  
@@ -95,7 +95,7 @@
  
   **Code:** 200 
   
-    **Content:** 
+    **Response:** 
     `{  "status":  "Success",  "data":  {  "status":  "Success",  "message":  "Tenant Configuration created successfully",  "data":  {  "tenantDetails":  {  "tenant_id":  "3d598852-7280-11ea-9bd3-28d24448fe41",  "tenant_config_details":  {  "pass_key_expires":  60,  "pass_phrase":  "system",  "pass_phrase_method":  "numeric",  "pass_phrase_length":  5  },  "created_by":  1400,  "updated_at":  "2020-04-09 13:41:12",  "created_at":  "2020-04-09 13:41:12",  "id":  1  }  }  }  }`
     
  * **Error Responses**
@@ -104,11 +104,11 @@
 	|---	|---	|---	| 	
 	|   400	|     Bad / Not a valid request	|   	`{  "errors":  {  "tenant_id":  [  "The tenant id has already been taken "  ],  "tenant_config_details.pass_phrase":  [  "The selected tenant config details.pass phrase is invalid."  ]  }  }`|   	
 
-**Tenant Configuration View**
+**Identity Service Passcode Configuration**
 
-**Resource URL** - `#GET` - https://authservice.fpsinc.com/api/v2/tenant/{tenant_id}/config
+**Resource URL** - `#GET` - https://authservice.fpsinc.com/api/v2/{tenant_id}/identity/passcode/config
 
-**Description:** Get Tenant Configuration details that includes Pass key expiry time and Pass Phrase mode, method & length.
+**Description:** Get Passcode Configuration details that includes Pass key expiry time and Pass Phrase mode, method & length.
   
 * **Sample Input:**
  
@@ -120,7 +120,7 @@
  
   **Code:** 200 
   
-    **Content:**
+    **Response:**
      `{  "id":  1,  "tenant_id":  "d70b4e8c-41000001",  "tenant_config_details":  {  "pass_key_expires":  60,  "pass_phrase":  "system",  "pass_phrase_method":  "numeric",  "pass_phrase_length":  5  },  "status":  1,  "created_by":  1400,  "updated_at":  "2020-04-09 13:41:12",  "created_at":  "2020-04-09 13:41:12"  }`
  * **Error Responses**
 
@@ -134,6 +134,10 @@
 
 **Description:** Create new unique API key for tenant, that is required to access the Verify API, which verifies the trust created by Customer.
 
+**Authentication:** 	Enter your bearer token in the format Bearer <token>
+			Name: Authorization
+			In: header
+
 * **Sample Input:**
  
 	**Required:**
@@ -144,7 +148,7 @@
  
   **Code:** 200 
   
-    **Content:** 
+    **Response:** 
     `{  "status":  "Success",
       "api_key":  "7Sngey4k5F5e79ewDiyjGy70DGMVnNCXlwDiyjGyJJumpcT0PKZVjk2xeR"  }`
  * **Error Responses**
@@ -158,7 +162,7 @@
 
 **Customer Trust Submission**
 
-**Resource URL** - `#POST` - https://authservice.fpsinc.com/api/v2/tenant/{tenant_id}/trust
+**Resource URL** - `#POST` - https://authservice.fpsinc.com/api/v2/{tenant_id}/identity/passcode
 
 **Description:** Create new trust in tenant system for customer verification
   
@@ -181,7 +185,7 @@
 
 **Customer Trust Verification**
 
-**Resource URL** - `#GET` - https://authservice.fpsinc.com/api/v2/tenant/{tenant_id}/verify/{pass_key}
+**Resource URL** - `#GET` - https://authservice.fpsinc.com/api/v2/{tenant_id}/identity/passcode/{key}
 
 **Description:**  Verify the trust created by customer
 
@@ -196,7 +200,7 @@
  
   **Code:** 200 
   
-    **Content:**
+    **Response:**
      `{  "status":  "Success",  "pass_phrase":  "chennai"  }`
 
  
