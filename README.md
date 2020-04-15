@@ -1,4 +1,5 @@
-# API DOCUUMENTATION: https://authservice.fpsinc.com/api/documentation
+# API DOCUMENTATION: https://authservice.fpsinc.com/api/documentation
+
 # ADMIN API's
 **Tenant Admin User Create**
 
