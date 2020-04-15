@@ -6,10 +6,10 @@
 **Description:** Create a new tenant admin user in the system, who can view and configure the Tenant Configuration Details.
   
 * **Sample Input:**
-* 
+ 
    `{  "name":  "Testdata",  "email":  "test.data@fpsinc.com",  "password":  "yourpassword"  }`
 * **Sample  Output:**
-* 
+ 
   **Code:**  200  
         **Content:** 
          `{
@@ -45,7 +45,7 @@
  `{  "email":  "user@email.com",  "password":  "yourpassword"  }`
  
 * **Sample Output:**
-* 
+ 
   **Code:** 200 
   
     **Content:** `{  "success":  true,  "token":''}`
@@ -64,11 +64,11 @@
 **Description:** Create new Tenant in the system. By Default, the Tenant will be set to Inactive status. Service provider will activate based on the request.
 
 * **Sample Input:**
-* 
+ 
  `{  "tenant_name":  "FPS"  }`
  
 * **Sample Output:**
-* 
+ 
   **Code:** 200 
   
     **Content:** 
@@ -88,11 +88,11 @@
 **Description:** Create new Configuration details for the tenant, that includes Pass key expiry time and Pass Phrase mode, method & length. The Phrase can be set to system or manual. If set to system, auto-generated Pass Phrase will be returned while calling the Trust API.
   
 * **Sample Input:**
-* 
+ 
 	`{  "tenant_config_details":  {  "pass_key_expires":  60,  "pass_phrase":  "system",  "pass_phrase_method":  "numeric",  "pass_phrase_length":  5  }  }`
 
 * **Sample Output:**
-* 
+ 
   **Code:** 200 
   
     **Content:** 
@@ -111,13 +111,13 @@
 **Description:** Get Tenant Configuration details that includes Pass key expiry time and Pass Phrase mode, method & length.
   
 * **Sample Input:**
-* 
+ 
 	**Required:**
 	
 	`tenant_id=[string]`
 
 * **Sample Output:**
-* 
+ 
   **Code:** 200 
   
     **Content:**
@@ -135,13 +135,13 @@
 **Description:** Create new unique API key for tenant, that is required to access the Verify API, which verifies the trust created by Customer.
 
 * **Sample Input:**
-* 
+ 
 	**Required:**
 	
 	`tenant_id=[string]`
 
 * **Sample Output:**
-* 
+ 
   **Code:** 200 
   
     **Content:** 
@@ -166,7 +166,7 @@
 `{  "pass_key":  "23456",  "pass_phrase":  "chennai"  }`
 
 * **Sample Output:**
-* 
+ 
   **Code:** 200 
   
     **Content:** 
@@ -185,15 +185,15 @@
 
 **Description:**  Verify the trust created by customer
 
-* **URL Params**
-* 
+ **URL Params**
+ 
 **Required:**
 
 	`tenant_id=[string]`
 	`pass_key=[string]`
 
 * **Sample Output:**
-* 
+ 
   **Code:** 200 
   
     **Content:**
