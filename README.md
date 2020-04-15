@@ -1,3 +1,4 @@
+# API DOCUUMENTATION: https://authservice.fpsinc.com/api/documentation
 # ADMIN API's
 **Tenant Admin User Create**
 
@@ -11,7 +12,7 @@
 * **Sample  Output:**
  
   **Code:**  200  
-        **Content:** 
+        **Response:** 
          `{
 				   "status":"SUCCESS",
 				   "message":"User created successfully",
@@ -48,7 +49,7 @@
  
   **Code:** 200 
   
-    **Content:** `{  "success":  true,  "token":''}`
+    **Response:** `{  "success":  true,  "token":''}`
 
 * **Error Responses**
 
@@ -134,7 +135,7 @@
 
 **Description:** Create new unique API key for tenant, that is required to access the Verify API, which verifies the trust created by Customer.
 
-**Authentication:** 	Enter your bearer token in the format Bearer <token>
+**Authorization:** 	Enter your bearer token in the format Bearer <token>
 			Name: Authorization
 			In: header
 
@@ -160,11 +161,11 @@
  ___
 # CLIENT API's
 
-**Customer Trust Submission**
+**Customer Passcode Submission**
 
 **Resource URL** - `#POST` - https://authservice.fpsinc.com/api/v2/{tenant_id}/identity/passcode
 
-**Description:** Create new trust in tenant system for customer verification
+**Description:** Create new passcode in tenant system for customer verification
   
 * **Sample Input:**
 `{  "pass_key":  "23456",  "pass_phrase":  "chennai"  }`
@@ -190,6 +191,9 @@
 **Description:**  Verify the trust created by customer
 
  **URL Params**
+ 
+ **Authorization:** 	Enter your API key the format x-api-key <API_KEY>
+			In: header
  
 **Required:**
 
