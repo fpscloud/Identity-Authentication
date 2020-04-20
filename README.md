@@ -5,8 +5,8 @@ Customers are becoming increasingly aware of their privacy and getting bombarded
 Identity Authentication is the backend service that companies can integrate in their applications to be able to authenticate agent to the customer. One can think of this as the reverse of two-factor authentication where companies are trying to validate that the customer is who they say they are.  In this case, the customer wants to validate that the company agent is who they say they are. 
 
 During the call, the typical trust flow will look like as below -
-* Agent will direct the customer to go to the companies public website (assumed trusted site). In the website, the customer will initiate the trust flow by submitting the phone number (agent already knows this) and the system will then generate ONE  TIME SECRET CODE (customer will not share this with agent).
-* Agent will use the backoffice system (CRM, Dialer etc behind companies firewall in the trusted zone) to retrieve the secret code associated with the phone number and will prompt it back to the customer establish the trust.
+* Agent will direct the customer to go to the companies public website (assumed trusted site). In the website, the customer will initiate the trust flow by submitting the phone number (agent already knows this) and the system will then generate a ONE  TIME PASS CODE (it is a secret code and customer will not share this with agent).
+* Agent will use the backoffice system (CRM, Dialer etc behind companies firewall in the trusted zone) to retrieve the pass code associated with the phone number and will prompt it back to the customer to establish the trust.
 
 
 # IMPLEMENTATION
