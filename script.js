@@ -4,6 +4,7 @@ const passKeyError = document.querySelector('.passKey__error');
 const passPhraseError = document.querySelector('.passPhrase__error');
 
 const pass_phraseContainer = document.querySelector('#widget__phrase-container');
+const pass_control_container = document.querySelector('#pass_control_container');
 const button = document.querySelector('#button');
 
 const form = document.querySelector('#clientForm');
@@ -23,7 +24,7 @@ const URL = `${apiUrl}/${apiVer}/${tenantID}`
 
 // Form Submit Message
 const showMessage = (type, err) => {
-    
+
     //console.log(type, err);
     message.removeChild(message.childNodes[0]);
     let div = document.createElement('div');
@@ -54,10 +55,9 @@ const checkConfiguration = (configuration) => {
     const passPhraseCondition = configuration['pass_phrase'];
     if (passPhraseCondition === 'system') {
         button.innerText = 'Generate Pass-Phrase';
-        passPhrase.classList.add('hide')
     } else if (passPhraseCondition === 'manual') {
         button.innerText = 'Submit';
-        pass_phraseContainer.classList.remove('hide');
+        pass_control_container.classList.remove('hide');
     }
     document.querySelector('.widget__box').classList.remove('loading');
 }
@@ -79,11 +79,11 @@ const getConfiguration = () => {
 
 // Form Submit
 const sendData = (event) => {
-    
+
     event.preventDefault();
     clearTimeout(timeOut);
     pass_phraseContainer.innerText = "";
-    
+
     const passPhraseCondition = configuration['pass_phrase'];
     axios.post(
         `${URL}/identity/passcode`, {
@@ -111,30 +111,41 @@ getConfiguration();
 
 
 //Error Handling
-passKey.onblur = function () {
-    let val = passKey.value;
-    //console.log(val);
+const onBlur = (field, errField, type, min, max) => {
+
+    let val = field.value;
     if (val != '') {
-        if (isNaN(val)) {
-            passKeyError.style.visibility = "visible";
-            passKeyError.innerText = "Please enter numbers only";
-        } else {
-            let length = val.toString().length;
-            if (!(length >= 4 && length <= 10)) {
-                passKeyError.style.visibility = "visible";
-                passKeyError.innerText = "Please enter number between 4 and 10 characters length";
-            }
+        let length = val.toString().length;
+        if (!(length >= min && length <= max)) {
+            errField.style.visibility = "visible";
+            errField.innerText = `Please enter ${type} between ${min} and ${max} characters length`;
         }
     } else {
-        passKeyError.style.visibility = "visible";
-        passKeyError.innerText = "This field cannot be left empty";
+        errField.style.visibility = "visible";
+        errField.innerText = "This field cannot be left empty";
     }
-};
+}
 
-passKey.onfocus = function () {
-    passKeyError.style.visibility = "hidden";
-    passKeyError.innerText = "";
-};
+
+const onFocus = (errField) => {
+    errField.style.visibility = "hidden";
+    errField.innerText = "";
+}
+
+
+passKey.addEventListener('blur', function () {
+    onBlur(passKey, passKeyError, "number", 4, 10);
+})
+passKey.addEventListener('focus', function () {
+    onFocus(passKeyError);
+})
+
+passPhrase.addEventListener('blur', function () {
+    onBlur(passPhrase, passPhraseError, "text", 6, 20);
+})
+passPhrase.addEventListener('focus', function () {
+    onFocus(passPhraseError);
+})
 
 
 //Function to not let the user type in letters
