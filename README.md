@@ -293,4 +293,4 @@ const sendData = () => {
 
 You can integrate with salesforce as a Lightning Web Component. 
 
-Please see refernce implementation in salesforce folder.
+Please see reference implementation in salesforce folder.
