@@ -76,7 +76,7 @@ Use our login API to generate a authorization token with the regsitered email & 
 	|---	|---	|---	|
 	|  401	|    Unauthorized 	|`{  "status":  "Failed",  "message":  "Invalid credentials"  }`|
 	
-** STEP 2: **
+**STEP 2**
 
 **Create new tenant in the system**
 
@@ -101,7 +101,7 @@ Use our login API to generate a authorization token with the regsitered email & 
 	|   Error Code	|   Description	|   	Error Response Sample|   	   	
 	|---	|---	|---	|
 	|  400|    Bad / Not a valid request|`{  "errors":  {  "tenant_name":  [  "The tenant name has already been taken."  ]  }  }`|   	
-** STEP 3: **
+**STEP 3:**
 
 **Generate REST API key to access service API's**
 
@@ -131,7 +131,7 @@ Use our login API to generate a authorization token with the regsitered email & 
 	|---	|---	|---	|
 	|   400	|     Bad / Not a valid request	|   	`{    "errors": {      "tenant_id": [        "The tenant id is invalid."     ]    }`|   	
 
-** STEP 4:**
+**STEP 4:**
 
 **Create New Passcode Configuration For Identity Service **
 
