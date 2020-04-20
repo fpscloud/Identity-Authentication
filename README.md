@@ -1,12 +1,28 @@
-RESTful web service for two users (consumer and company agent) to be able to authenticate each other by using the company’s website and apps as the source of the underlying authentication/trust/validation between the two parties.
+# BACKGROUND
+Customers are becoming increasingly aware of their privacy and getting bombarded by bad actors who want to dupe them into giving their personal info (and ultimately money).  When receiving calls from companies trying to reach out to them, customers are often weary of whether the communication is actually coming from the company or is it a fraud. Thus, companies want a simple but foolproof way to validating/authenticating their identity to the customer when contacting them. 
 
-There are two parts of this service:
-* “Post”: Setting the lookup code and the passphrase in a website or application owned by the company 
-* “Get”: Looking up the code and passphrase in an application owned by the company that is behind an user authentication service 
+# SOLUTION
+Identity Authentication is the backend service that companies can integrate in their applications to be able to authenticate agent to the customer. One can think of this as the reverse of two-factor authentication where companies are trying to validate that the customer is who they say they are.  In this case, the customer wants to validate that the company agent is who they say they are. 
 
-Setup 
-* Client can integrate the Post service in their website or application. 
-* Client can integrate the Get service in their system that is behind user authentication/permissions. For example, agents can only lookup the codes once they are logged into the CRM app.  
+During the call, the typical trust flow will look like as below -
+* Agent will direct the customer to go to the companies public website (assumed trusted site). In the website, the customer will initiate the trust flow by submitting the phone number (agent already knows this) and the system will then generate ONE  TIME SECRET CODE (customer will not share this with agent).
+* Agent will use the backoffice system (CRM, Dialer etc behind companies firewall in the trusted zone) to retrieve the secret code associated with the phone number and will prompt it back to the customer establish the trust.
+
+
+# IMPLEMENTATION
+This service consists of collection of various rest api end points (refer below sections for details) and the integration will involve the below implementation steps -
+* Tenant Registeration
+	* Register your company as a "tenant" in the FPS system
+	* Obtain api key, required to call APIs
+* Indentity Auth Configiration
+	* Set up the pass code configuration. The system allows two passcode modes - manual setup or system generated (default). 
+	* In case of system generated mode, the desired length of the passcode can be setup
+* Customer facing UI Implementation *(Please refer to the below sections for the sample reference code.)*
+	* Implement the customer facing screen (companies website or app) and integrate it with the "post" api to retrieve the generated (system generated mode) the one time pass code. 
+	* In case of manual setup, provide a text box to capture customer provided secret
+* Agent facing UI  Implemementation  *(Please refer to the below sections for the sample reference code.)*
+	* Implement agent facing screen (backoffice application such as CRM, Dialer etc) and integrate it with the "get" api to retrieve the pass code associated with the phone number.
+
 
 # API DOCUMENTATION: https://authservice.fpsinc.com/api/documentation
 
