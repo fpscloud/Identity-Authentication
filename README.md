@@ -76,7 +76,7 @@ Use our login API to generate a authorization token with the regsitered email & 
 	|---	|---	|---	|
 	|  401	|    Unauthorized 	|`{  "status":  "Failed",  "message":  "Invalid credentials"  }`|
 	
-**STEP 2**
+**STEP 2:**
 
 **Create new tenant in the system**
 
@@ -133,7 +133,7 @@ Use our login API to generate a authorization token with the regsitered email & 
 
 **STEP 4:**
 
-**Create New Passcode Configuration For Identity Service **
+**Create New Passcode Configuration For Identity Service**
 
 **Resource URL** - `#POST` - https://authservice.fpsinc.com/api/v2/{tenant_id}/identity/passcode/config
 
