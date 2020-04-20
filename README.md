@@ -4,22 +4,24 @@ Customers are becoming increasingly aware of their privacy and getting bombarded
 # SOLUTION
 Identity Authentication is the backend service that companies can integrate in their applications to be able to authenticate agent to the customer. One can think of this as the reverse of two-factor authentication where companies are trying to validate that the customer is who they say they are.  In this case, the customer wants to validate that the company agent is who they say they are. 
 
-During the call, the typical trust flow will look like as below -
+During the call, the typical trust flow between the agent and the customer will look like as below -
 * Agent will direct the customer to go to the companies public website (assumed trusted site). In the website, the customer will initiate the trust flow by submitting the phone number (agent already knows this) and the system will then generate a ONE  TIME PASS CODE (it is a secret code and customer will not share this with agent).
 * Agent will use the backoffice system (CRM, Dialer etc behind companies firewall in the trusted zone) to retrieve the pass code associated with the phone number and will prompt it back to the customer to establish the trust.
 
 
 # IMPLEMENTATION
-This service consists of collection of various rest api end points (refer below sections for details) and the integration will involve the below implementation steps -
+This service consists of various rest api end points (refer below sections for details) and the api integration will involve the below implementation steps -
 * Tenant Registeration
-	* Register your company as a "tenant" in the FPS system
-	* Obtain api key, required to call APIs
-* Indentity Auth Configiration
+	* Register your self (typically IT admin) as a tenant admin by supplying your profile & credential information.
+	* Using your tenant admin credentials register your company as a "tenant" in the FPS system. The system will generate and assign a unique id "Tenand Id" to uniquely identify your company.
+	* Obtain api key, required to call the service APIs. It will be the responsibility of the company to keep this information secured and not share with anyone. In case of compromise, the api key can be refreshed on demand (via refresh api). As a best practice, we recommend you to refresh the api key periodically.
+* Indentity Auth Configuration
 	* Set up the pass code configuration. The system allows two passcode modes - manual setup or system generated (default). 
 	* In case of system generated mode, the desired length of the passcode can be setup
+	* In case of manual mode, the system relies on the user (customer facing application) to supply the passcode in the api to establish the trust flow.
 * Customer facing UI Implementation *(Please refer to the below sections for the sample reference code.)*
 	* Implement the customer facing screen (companies website or app) and integrate it with the "post" api to retrieve the generated (system generated mode) the one time pass code. 
-	* In case of manual setup, provide a text box to capture customer provided secret
+	* In case of manual setup, provide a text box to allow customer to provided the pass code (secret)
 * Agent facing UI  Implemementation  *(Please refer to the below sections for the sample reference code.)*
 	* Implement agent facing screen (backoffice application such as CRM, Dialer etc) and integrate it with the "get" api to retrieve the pass code associated with the phone number.
 
