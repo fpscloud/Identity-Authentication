@@ -155,11 +155,11 @@ Use our login API to generate a authorization token with the regsitered email & 
 
 **Resource URL** - `#POST` - https://authservice.fpsinc.com/api/v2/{tenant_id}/identity/passcode/config
 
-**Description:** Create new pass code configuration which will be used in the client create and verify API's, User can configure the following parameters, Expiry time in Seconds, Pass Phrase mode (system / manual), Method (Numeric, Alphabets, Alphanumeric) & Character length. The Phrase can be set to system or manual. If set to system, auto-generated Pass Phrase will be returned while calling the Trust API.
+**Description:** Create new pass code configuration which will be used in the client create and verify API's, User can configure the following parameters, Expiry time in Seconds, Pass Phrase mode (system / manual), Allowed characters (Numeric, Alphabets, Alphanumeric) & Character length. The Phrase can be set to system or manual. If set to system, auto-generated Pass Phrase will be returned while calling the Trust API.
   
 * **Sample Input:**
  
-	`{  "tenant_config_details":  {  "pass_key_expires":  60,  "pass_phrase":  "system",  "pass_phrase_method":  "numeric",  "pass_phrase_length":  5  }  }`
+	`{  "tenant_config_details":  {  "pass_key_expires":  60,  "pass_phrase":  "system",  "pass_pharse_allowed_characters":  "numeric",  "pass_phrase_length":  5  }  }`
 
 * **Sample Output:**
  
