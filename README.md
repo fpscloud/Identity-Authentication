@@ -7,7 +7,7 @@ Identity Authentication was developed to help companies build trust with their c
 When a company agent calls a customer, the typical trust flow between the agent and the customer will look like this:-
 
 * The Agent will direct the customer to go to the company's public website (assumed trusted site). On the website, the customer will initiate the trust flow by submitting their phone number (which the agent already knows) and the system will then generate a ONE TIME PASSCODE (it is a secret code and customer will not share this with the agent).
-* The Agent will then use the back office system (such as CRM, Dialer, etc behind the company's firewall in the trusted zone) to retrieve the PASSCODE associated with the phone number and will prompt it back to the customer to establish the trust.
+* The Agent will then use the back office system (such as CRM, Dialer, etc behind the company's firewall in the trusted zone) to retrieve the PASSCODE associated with the phone number and will say it back to the customer (verbally) to establish trust.
 
 
 # IMPLEMENTATION
