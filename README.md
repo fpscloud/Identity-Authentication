@@ -228,10 +228,10 @@ Use our login API to generate an authorization token with the registered email &
 
 **Resource URL** - `#GET` - https://authservice.fpsinc.com/api/v2/{tenant_id}/identity/passcode/{key}
 
-**Description:**  Verify the trust created by the customer by using the pass key which was prompted/shared by customer. This API has to be integrated with CRM or Any other application used to store the customer's information.  
+**Description:**  Verify the trust created by the customer by using the pass key which was prompted/shared by customer. This API has to be integrated with CRM or any other application used to store the customer's information.  
 
  **Authorization:** 	Enter your API key the format x-api-key <API_KEY>
-			In: header
+			in: header
  
 **Required:**
 
