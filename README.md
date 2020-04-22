@@ -76,7 +76,7 @@ Use our login API to generate an authorization token with the registered email &
 
 **Resource URL** - `#POST` - https://authservice.fpsinc.com/api/v2/login
 
-**Description:** The user must authenticate in the system using the email and password to generate a token. Please store the token securely. Use this token to authorize yourself to access Tenant administration APIs. The token will be expired after 30 days, use this API to generate a new token.
+**Description:** The user must be authenticate in the system using the email and password to generate a token. Please store the token securely. Use this token to authorize yourself to access Tenant administration APIs. The token will expire after 30 days, use this API to generate a new token.
 
 * **Sample Input:**
  `{  "email":  "tenantadmin@email.com",  "password":  "yourpassword"  }`
@@ -205,7 +205,7 @@ Use our login API to generate an authorization token with the registered email &
 
 **Resource URL** - `#POST` - https://authservice.fpsinc.com/api/v2/{tenant_id}/identity/passcode
 
-**Description:** Create a new passcode in the Tenant system for customer verification. This API has to be integrated with customer facing application/website, e.g. corporate website to gain customer trust to share any personal information
+**Description:** Create a new passcode in the Tenant system for customer verification. This API has to be integrated with customer facing application/website.
   
 * **Sample Input:**
 `{  "pass_key":  "23456",  "pass_phrase":  "chennai"  }`
@@ -228,7 +228,7 @@ Use our login API to generate an authorization token with the registered email &
 
 **Resource URL** - `#GET` - https://authservice.fpsinc.com/api/v2/{tenant_id}/identity/passcode/{key}
 
-**Description:**  Verify the trust created by the customer by using the pass key which was prompted/shared by customer. This API has to be integrated with CRM or any other application used to store the customer's information.  
+**Description:**  Verify the trust created by the customer by using the pass key. This API has to be integrated with CRM or any other application used to store the customer's information.  
 
  **Authorization:** 	Enter your API key the format x-api-key <API_KEY>
 			in: header
@@ -257,19 +257,19 @@ Use our login API to generate an authorization token with the registered email &
  
 |   Error Code	|   Description	| Error Response Sample|   	   	
 |---	|---	|---	|
-|  500 	|  Internal Server error 	|   	`{    "status": "Failed",   "message": "Some thing went wrong. Please contact Administrator"  }`|
+|  500 	|  Internal Server error 	|   	`{    "status": "Failed",   "message": "Something went wrong. Please contact Administrator"  }`|
 
  ___
 
 ## HTML & CSS
 
-Copy & Insert the whole div with class named "widget__box" on index.html into your file.
+Copy & Insert the whole div with class named "widget__box", into your web application index.html file.
 ```
 <div class="widget__box">...</div>
 ```
 The classes are named uniquely so that it doesn't interfere with your other styles.
 
-Please include our styles.css as a link in your head, or copy everything in styles.css and place it in a style tag in your head.
+Please include our styles.css as a link in your head, or copy everything in styles.css and place it in a style tag in the <head> tag of your HTML page.
 
 ## JS
 You can choose to go with your own approach on handling the HTTP requests. 
