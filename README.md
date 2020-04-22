@@ -5,44 +5,44 @@ Customers are becoming increasingly aware of their privacy and getting bombarded
 Identity Authentication is the backend service that companies can integrate into their applications to authenticate their agent to the customer. One can think of this as the reverse of two-factor authentication where companies are trying to validate that the customer is who they say they are.  In this case, the customer wants to validate that the company agent is who they say they are. 
 
 During the call, the typical trust flow between the agent and the customer will look like as below -
-* Agent will direct the customer to go to the company's public website (assumed trusted site). On the website, the customer will initiate the trust flow by submitting their phone number (agent already knows this) and the system will then generate a ONE TIME PASSCODE (it is a secret code and customer will not share this with the agent).
-* Agent will use the back office system (such as CRM, Dialer, etc behind companies firewall in the trusted zone) to retrieve the PASSCODE associated with the phone number and will prompt it back to the customer to establish the trust.
+* The Agent will direct the customer to go to the company's public website (assumed trusted site). On the website, the customer will initiate the trust flow by submitting their phone number (which the agent already knows) and the system will then generate a ONE TIME PASSCODE (it is a secret code and customer will not share this with the agent).
+* The Agent will then use the back office system (such as CRM, Dialer, etc behind the company's firewall in the trusted zone) to retrieve the PASSCODE associated with the phone number and will prompt it back to the customer to establish the trust.
 
 
 # IMPLEMENTATION
 This service consists of various REST API endpoints (refer below sections for details) and integrating your applications with the API will involve the below implementation steps -
 * Tenant Registration
-	* Register yourself (typically IT admin in your company) as a tenant admin by supplying your profile & credential information.
-	* Using your tenant admin credentials, register your company as a "tenant" in the FPS system. The system will generate and assign an ID "Tenant ID" to uniquely identify your company.
+	* Register yourself (typically IT admin in your company) as a Tenant admin by providing your profile & credential information.
+	* Using your Tenant admin credentials, register your company as a "Tenant" in the FPS system. The system will generate and assign an "Tenant ID" to uniquely identify your company.
 	* Obtain API key, required to call the service APIs. It will be the company's responsibility to keep this information secure and not share it with anyone. In case of compromise, the API key can be refreshed on-demand (via refresh API). As a best practice, we recommend you to refresh the API key periodically.
 * Identity Auth Configuration
 	* Set up the passcode configuration. The system allows two passcode modes - manual setup or system generated (default). 
 	* In case of system generated mode, the desired length of the passcode can be setup
-	* In case of manual mode, the system relies on the user (via customer facing application) to supply the passcode in the API to establish the trust flow.
+	* In case of manual mode, the system relies on the Customer (via the customer facing application) to supply the passcode in the API to establish the trust flow.
 * Customer facing UI Implementation *(Please refer to the below sections for the sample reference code.)*
 	* Implement the customer facing screen (companies website or app) and integrate it with the "post" API to retrieve the generated (system generated mode) the one time passcode. 
 	* In case of manual setup, provide a text box to allow the customer to input the passcode (secret)
 * Agent facing UI  Implementation  *(Please refer to the below sections for the sample reference code.)*
-	* Implement agent facing screen (backoffice application such as CRM, Dialer etc) and integrate it with the "get" API to retrieve the passcode associated with the phone number.
+	* Implement agent facing screen (back office application such as CRM, Dialer, etc) and integrate it with the "get" API to retrieve the passcode associated with the phone number.
 
 
 # API DOCUMENTATION: https://authservice.fpsinc.com/api/documentation
 
-* If you are an registered user and have the valid Authorization token, Please proceed to Step 2.
-* If you are an registered user and don't have a valid Authorization token, Please use our login API to generate a new token from Step 1
-* If you are tenant that already is in Active status, Please proceed to Step 3 & Step 4
+* If you are a registered user and have the valid Authorization token, Please proceed to Step 2.
+* If you are a registered user and don't have a valid Authorization token, Please use our login API to generate a new token from Step 1
+* If you are a tenant that already is in Active status, Please proceed to Step 3 & Step 4
 
 # ADMIN API's
 
 **STEP 1:**
-Register yourself as a Tenant admin in our service
+Register yourself as a Tenant admin in our service.
 Use our login API to generate an authorization token with the registered email & password
 
 **Tenant Admin User Create**
 
 **Resource URL** - `#POST` - https://authservice.fpsinc.com/api/v2/tenant/user
 
-**Description:** Create a new user in the system, the user will be assigned with Tenant Admin role by default. This user will have the privilege to create/manage Tenant and configure the passcode service in the system.
+**Description:** Create a new user in the system, the user will be assigned the Tenant Admin role by default. This user will have the privilege to create/manage Tenant and configure the passcode service in the system.
   
 * **Sample Input:**
  
@@ -76,7 +76,7 @@ Use our login API to generate an authorization token with the registered email &
 
 **Resource URL** - `#POST` - https://authservice.fpsinc.com/api/v2/login
 
-**Description:** The user must authenticate in the system using the email and password to generate a token. Store the token in your secrets. Use this token to authorize yourself to access Tenant administration APIs. The token will be expired after 30 days, use this API to generate a new token.
+**Description:** The user must authenticate in the system using the email and password to generate a token. Please store the token securely. Use this token to authorize yourself to access Tenant administration APIs. The token will be expired after 30 days, use this API to generate a new token.
 
 * **Sample Input:**
  `{  "email":  "tenantadmin@email.com",  "password":  "yourpassword"  }`
@@ -96,11 +96,11 @@ Use our login API to generate an authorization token with the registered email &
 	
 **STEP 2:**
 
-**Create new tenant in the system**
+**Create a new Tenant in the system**
 
 **Resource URL** - `#POST` - https://authservice.fpsinc.com/api/v2/tenant
 
-**Description:** Create a new Tenant in the system. By Default, the Tenant will be set to Inactive status. After verifying the tenant user details, the Service admin will activate the tenant. Upon activation proceed to Step 3. 
+**Description:** Create a new Tenant in the system. By Default, the Tenant will be set to Inactive status. After verifying the Tenant user details, the Service admin will activate the Tenant. Upon activation proceed to Step 3. 
 
 * **Sample Input:**
  
@@ -125,7 +125,7 @@ Use our login API to generate an authorization token with the registered email &
 
 **Resource URL** - `#POST` - https://authservice.fpsinc.com/api/v2/tenant/{tenant_id}/api_key/refresh
 
-**Description:** Create a new REST API key for the tenant, Store the API key in your secrets. This API key is required to access the "Identity" service API's, which is in Step 4.
+**Description:** Create a new REST API key for the Tenant, please store the token securely.. This API key is required to access the "Identity" service APIs, which is in Step 4.
 
 **Authorization:** 	Enter your bearer token in the format Bearer <token>
 			Name: Authorization
@@ -155,7 +155,7 @@ Use our login API to generate an authorization token with the registered email &
 
 **Resource URL** - `#POST` - https://authservice.fpsinc.com/api/v2/{tenant_id}/identity/passcode/config
 
-**Description:** Create new passcode configuration which will be used in the client create and verify APIs, the User can configure the following parameters, Expiry time in Seconds, Pass Phrase mode (system/manual), Allowed characters (Numeric, Alphabets, Alphanumeric) & Character length. The Phrase can be set to system or manual. If set to system, auto-generated Pass Phrase will be returned while calling the Trust API.
+**Description:** Create a new passcode configuration which will be used in the client create and verify APIs, the User can configure the following parameters, Expiry time in Seconds, Pass Phrase mode (system/manual), Allowed characters (Numeric, Alphabets, Alphanumeric) & Character length. The Phrase can be set to system or manual. If set to system, auto-generated Pass Phrase will be returned while calling the Trust API.
   
 * **Sample Input:**
  
@@ -188,7 +188,7 @@ Use our login API to generate an authorization token with the registered email &
 
 * **Sample Output:**
  
-  **HTTP Rsponse Code:** 200 
+  **HTTP Response Code:** 200 
   
     **Response:**
      `{  "id":  1,  "tenant_id":  "d70b4e8c-41000001",  "tenant_config_details":  {  "pass_key_expires":  60,  "pass_phrase":  "system",  "pass_phrase_method":  "numeric",  "pass_phrase_length":  5  },  "status":  1,  "created_by":  1400,  "updated_at":  "2020-04-09 13:41:12",  "created_at":  "2020-04-09 13:41:12"  }`
@@ -205,7 +205,7 @@ Use our login API to generate an authorization token with the registered email &
 
 **Resource URL** - `#POST` - https://authservice.fpsinc.com/api/v2/{tenant_id}/identity/passcode
 
-**Description:** Create new passcode in the tenant system for customer verification. This API has to be integrated with customer facing application/website. eg: corporate website to gain cusomter trust to share any personal information
+**Description:** Create a new passcode in the Tenant system for customer verification. This API has to be integrated with customer facing application/website. eg: corporate website to gain customer trust to share any personal information
   
 * **Sample Input:**
 `{  "pass_key":  "23456",  "pass_phrase":  "chennai"  }`
@@ -228,7 +228,7 @@ Use our login API to generate an authorization token with the registered email &
 
 **Resource URL** - `#GET` - https://authservice.fpsinc.com/api/v2/{tenant_id}/identity/passcode/{key}
 
-**Description:**  Verify the trust created by the customer by passing the pass key which was prompted / shared by customer. This API has to be integrated with CRM or Any other application used to store the customer's information.  
+**Description:**  Verify the trust created by the customer by using the pass key which was prompted/shared by customer. This API has to be integrated with CRM or Any other application used to store the customer's information.  
 
  **Authorization:** 	Enter your API key the format x-api-key <API_KEY>
 			In: header
@@ -267,13 +267,13 @@ Copy & Insert the whole div with class named "widget__box" on index.html into yo
 ```
 <div class="widget__box">...</div>
 ```
-The classes are named uniquely, so that it doesn't interfer with your other styles.
+The classes are named uniquely so that it doesn't interfere with your other styles.
 
 Please include our styles.css as a link in your head, or copy everything in styles.css and place it in a style tag in your head.
 
 ## JS
 You can choose to go with your own approach on handling the HTTP requests. 
-Here, we have handled it with [axios](https://github.com/axios/axios), delivered on CDN
+Here, we have handled it with [Axios](https://github.com/axios/axios), delivered on CDN
 
 You need to fill in your provided Credentials here to successfully send requests to the server.
 
