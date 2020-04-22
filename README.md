@@ -1,10 +1,11 @@
 # BACKGROUND
-Customers are becoming increasingly aware of their privacy and getting bombarded by bad actors who want to dupe them into giving their personal info (and ultimately money).  When receiving calls from companies trying to reach out to them, customers are often wary of whether the communication is actually coming from the company or is it a fraud. Thus, companies want a simple but foolproof way of validating/authenticating their identity to the customer when contacting them. 
+Customers are being bombarded every day by bad actors (over phone calls) who want to steal their identities and their money. How can a customer know if the person they are speaking to is a genuine company representative or a fraud? Identity Authentication solves this problem 
 
 # SOLUTION
-Identity Authentication is the backend service that companies can integrate into their applications to authenticate their agent to the customer. One can think of this as the reverse of two-factor authentication where companies are trying to validate that the customer is who they say they are.  In this case, the customer wants to validate that the company agent is who they say they are. 
+Identity Authentication was developed to help companies build trust with their customers in the simplest way. Identity Authentication is a backend service that companies can integrate into their existing CRM/web applications and will help their customers authenticate the company representative (agent).Think of this as the reverse of two-factor authentication where instead of companies validating their customer, the customer validates the company.
 
-During the call, the typical trust flow between the agent and the customer will look like as below -
+When a company agent calls a customer, the typical trust flow between the agent and the customer will look like this:-
+
 * The Agent will direct the customer to go to the company's public website (assumed trusted site). On the website, the customer will initiate the trust flow by submitting their phone number (which the agent already knows) and the system will then generate a ONE TIME PASSCODE (it is a secret code and customer will not share this with the agent).
 * The Agent will then use the back office system (such as CRM, Dialer, etc behind the company's firewall in the trusted zone) to retrieve the PASSCODE associated with the phone number and will prompt it back to the customer to establish the trust.
 
@@ -269,7 +270,7 @@ Copy & Insert the whole div with class named "widget__box", into your web applic
 ```
 The classes are named uniquely so that it doesn't interfere with your other styles.
 
-Please include our styles.css as a link in your head, or copy everything in styles.css and place it in a style tag in the <head> tag of your HTML page.
+Please include our styles.css as a link in your HTML ```head``` tag , or copy everything in styles.css and place it in a style tag in the HTML ```<head>``` tag of your HTML page.
 
 ## JS
 You can choose to go with your own approach on handling the HTTP requests. 
