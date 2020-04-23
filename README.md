@@ -207,11 +207,11 @@ Use our login API to generate an authorization token with the registered email &
 **Resource URL** - `#POST` - https://authservice.fpsinc.com/api/v2/{tenant_id}/identity/passcode
 
 **Description:** Create a new passcode in the Tenant system for customer verification. This API has to be integrated with customer facing application/website.
-  
-* **Sample Input:**
-`{  "pass_key":  "23456",  "pass_phrase":  "chennai"  }`
 
 **Note: pass_phrase will be dynamically generated if the pass_phrase parameter set as system**
+ 
+* **Sample Input:**
+`{  "pass_key":  "23456",  "pass_phrase":  "chennai"  }`
 
 * **Sample Output:**
  
