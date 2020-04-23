@@ -208,7 +208,7 @@ Use our login API to generate an authorization token with the registered email &
 
 **Description:** Create a new passcode in the Tenant system for customer verification. This API has to be integrated with customer facing application/website.
 
-**Note: pass_phrase will be dynamically generated if the pass_phrase parameter set as system**
+**Note: pass_phrase will be dynamically generated, if the pass_phrase parameter set as ```system``` in passcode configuration**
  
 * **Sample Input:**
 `{  "pass_key":  "23456",  "pass_phrase":  "chennai"  }`
