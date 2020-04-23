@@ -263,25 +263,47 @@ Use our login API to generate an authorization token with the registered email &
  ___
 # UI Integration
 
-You can find Reference implementation for both Customer & Agent UI in this repository. Please follow the below instructions to successfully integrate the widget into your UI.
+You can find Reference implementation for both Customer & Agent UI in this repository. Please follow the below instructions to successfully integrate the widget into your UI. We have handled the HTTP requests with [Axios](https://github.com/axios/axios). CSS classes are named uniquely so that it doesn't interfere with your other styles.
 
+# Customer view
 ## HTML & CSS
 
-Copy & Embed the whole div with class named "widget__box", into your web application index.html file.
+Copy & Embed the below div with all its contents into your web page.
+
 ```
 <div class="widget__box">...</div>
 ```
-The classes are named uniquely so that it doesn't interfere with your other styles.
 
-Please include our style.css as a link in your HTML `head` tag , or copy everything in styles.css and place it in a style tag in the HTML `<head>` tag of your HTML page.
+Please include our `style.css` as a link in your HTML `head` tag , or copy everything in `styles.css` and place it in a style tag in the HTML `<head>` tag of your HTML page.
 
 ## JS
 
-Please include our script.js as a link in your HTML `body` tag, or copy everything in script.js and place it in a script tag inside your `body` tag of your HTML page. 
+Please include our `script.js` as a link in your HTML `body` tag, or copy everything in `script.js` and place it in a script tag inside your `body` tag of your HTML page. 
 
-You need to fill in your provided Credentials in the JS to successfully send requests to the server.
+You need to fill in your `apiUrl, apiVer, tenantID` in the JS, to successfully send requests to the server.
 
-For both the Customer side and Agent side you need to provide `apiUrl, apiVer, tenantID`. For Agent side, you need the `apiKey` as well.
+```
+const apiUrl = '.....';
+const apiVer = '.....';
+const tenantID = '.....';
+```
+
+# Agent view
+## HTML & CSS
+
+Copy & Embed the below div with all its contents into your web page.
+
+```
+<div class="widget__box">...</div>
+```
+
+Please include our `style.css` as a link in your HTML `head` tag , or copy everything in `styles.css` and place it in a style tag in the HTML `<head>` tag of your HTML page.
+
+## JS
+
+Please include our `script.js` as a link in your HTML `body` tag, or copy everything in `script.js` and place it in a script tag inside your `body` tag of your HTML page. 
+
+You need to fill in your `apiUrl, apiVer, tenantID, apiKey` in the JS, to successfully send requests to the server.
 
 ```
 const apiUrl = '.....';
@@ -290,12 +312,6 @@ const tenantID = '.....';
 const apiKey = '.....';
 ```
 
-We have handled the HTTP requests with [Axios](https://github.com/axios/axios), delivered on CDN.
-
-You can choose to go with your own approach on handling the HTTP requests. 
-
 **Salesforce Integration**
 
-You can integrate with salesforce as a Lightning Web Component. 
-
-Please see the reference implementation in the salesForceImpl.js file.
+Please see the reference implementation in the `salesForceImpl.js` file, to integrate with salesforce as a Lightning Web Component.
