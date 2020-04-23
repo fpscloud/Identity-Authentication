@@ -265,7 +265,7 @@ Use our login API to generate an authorization token with the registered email &
  ___
 # UI Integration
 
-You can find Reference implementation for both Customer & Agent UI in this repository. Please follow the below instructions to successfully integrate the widget into your UI. We have handled the HTTP requests with [Axios](https://github.com/axios/axios). CSS classes are named uniquely so that it doesn't interfere with your other styles.
+You can find reference implementation for both Customer & Agent UI in this repository. Please follow the below instructions to successfully integrate the widget into your UI. We have handled the HTTP requests with [Axios](https://github.com/axios/axios). CSS classes are named uniquely so that it doesn't interfere with your other styles.
 
 # Customer view
 ## HTML & CSS
