@@ -77,7 +77,7 @@ Use our login API to generate an authorization token with the registered email &
 
 **Resource URL** - `#POST` - https://authservice.fpsinc.com/api/v2/login
 
-**Description:** The user must be authenticate in the system using the email and password to generate a token. Please store the token securely. Use this token to authorize yourself to access Tenant administration APIs. The token will expire after 30 days, use this API to generate a new token.
+**Description:** The user must authenticate to the system using the email and password to generate a token. Please store the token securely. Use this token to authorize yourself to access Tenant administration APIs. The token will expire after 30 days, use this API to generate a new token.
 
 * **Sample Input:**
  `{  "email":  "tenantadmin@email.com",  "password":  "yourpassword"  }`
