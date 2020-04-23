@@ -128,7 +128,7 @@ Use our login API to generate an authorization token with the registered email &
 
 **Description:** Create a new REST API key for the Tenant, please store the token securely. This API key is required to access the "Identity" service APIs, which is in Step 4.
 
-**Authorization:** 	Enter your bearer token in the format Bearer <token>
+**Authorization:** 	Enter your bearer token in the format ```Bearer <token>```
 			Name: Authorization
 			In: header
 
@@ -158,6 +158,10 @@ Use our login API to generate an authorization token with the registered email &
 
 **Description:** Create a new passcode configuration which will be used in the client create and verify APIs, the User can configure the following parameters, Expiry time in Seconds, Pass Phrase mode (system/manual), Allowed characters (Numeric, Alphabets, Alphanumeric) & Character length. The Phrase can be set to system or manual. If set to system, auto-generated Pass Phrase will be returned while calling the Trust API.
   
+ **Authorization:** 	Enter your bearer token in the format ```Bearer <token>```
+			Name: Authorization
+			In: header
+			
 * **Sample Input:**
  
 	`{  "tenant_config_details":  {  "pass_key_expires":  60,  "pass_phrase":  "system",  "pass_pharse_allowed_characters":  "numeric",  "pass_phrase_length":  5  }  }`
@@ -180,7 +184,11 @@ Use our login API to generate an authorization token with the registered email &
 **Resource URL** - `#GET` - https://authservice.fpsinc.com/api/v2/{tenant_id}/identity/passcode/config
 
 **Description:** Get Passcode Configuration details that include Pass key expiry time and Pass Phrase mode, method & length.
-  
+
+**Authorization:** 	Enter your bearer token in the format ```Bearer <token>```
+			Name: Authorization
+			In: header
+			
 * **Sample Input:**
  
 	**Required:**
