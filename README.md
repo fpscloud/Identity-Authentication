@@ -101,7 +101,7 @@ Use our login API to generate an authorization token with the registered email &
 
 **Resource URL** - `#POST` - https://authservice.fpsinc.com/api/v2/tenant
 
-**Description:** Create a new Tenant in the system. By Default, the Tenant will be set to Inactive status. After verifying the Tenant user details, the Service admin will activate the Tenant. Upon activation proceed to Step 3. 
+**Description:** Create a new Tenant in the system. By default, the Tenant will be set to Inactive status. After verifying the Tenant user details, the service admin will activate the Tenant. Upon activation proceed to Step 3. 
 
 * **Sample Input:**
  
