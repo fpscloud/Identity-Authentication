@@ -54,7 +54,7 @@ const checkConfiguration = (configuration) => {
 
     const passPhraseCondition = configuration['pass_phrase'];
     if (passPhraseCondition === 'system') {
-        button.innerText = 'Generate Pass-Phrase';
+        button.innerText = 'Generate Pass Code';
     } else if (passPhraseCondition === 'manual') {
         button.innerText = 'Submit';
         pass_control_container.classList.remove('hide');

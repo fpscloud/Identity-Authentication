@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Identity Management - Agent Verification</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="widget__box">
+        <form id="agentForm" novalidate>
+            <h2>Agent Verification</h2>
+            <div class="widget__form-control">
+                <label for="passKey">Enter Pass-Key :</label>
+                <input required class="widget__input" id="passKey" type="text" minlength="4" maxlength="10" title="Please enter the Customer's Pass-Key" placeholder="Please enter the Customer's Pass-Key">
+                <small class="passKey__error">Error message</small>
+            </div>
+            <div class="widget__form-control">
+                <button id="button">Generate Pass Code</button>
+                <div id="widget__phrase-container"></div>
+            </div>
+            <div class="widget__message" style="visibility: hidden">
+            </div>
+        </form>
+        <div class="widget__loader">
+            <div class="lds-ring">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- AXIOS JS -->
+    <script src="https://fpscloud.com/auth/axios.js"></script>
+
+    <!-- Main Script -->
+    <script src="script.js"></script>
+</body>
+
+</html>
