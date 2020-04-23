@@ -2,7 +2,7 @@
 Customers are being bombarded every day by bad actors (over phone calls) who want to steal their identities and their money. How can a customer know if the person they are speaking to is a genuine company representative or a fraud? Identity Authentication solves this problem 
 
 # SOLUTION
-Identity Authentication was developed to help companies build trust with their customers in the simplest way. Identity Authentication is a backend service that companies can integrate into their existing CRM/web applications and will help their customers authenticate the company representative (agent).Think of this as the reverse of two-factor authentication where instead of companies validating their customer, the customer validates the company.
+Identity Authentication was developed to help companies build trust with their customers in the simplest way. Identity Authentication is a backend service that companies can integrate into their existing CRM/web applications and will help their customers authenticate the company representative (agent). Think of this as the reverse of two-factor authentication where instead of companies validating their customer, the customer validates the company.
 
 When a company agent calls a customer, the typical trust flow between the agent and the customer will look like this:-
 
