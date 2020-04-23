@@ -211,6 +211,8 @@ Use our login API to generate an authorization token with the registered email &
 * **Sample Input:**
 `{  "pass_key":  "23456",  "pass_phrase":  "chennai"  }`
 
+**Note: pass_phrase will be dynamically generated if the pass_phrase parameter set as system**
+
 * **Sample Output:**
  
   **HTTP Response Code:** 200 
