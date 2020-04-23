@@ -261,39 +261,41 @@ Use our login API to generate an authorization token with the registered email &
 |  500 	|  Internal Server error 	|   	`{    "status": "Failed",   "message": "Something went wrong. Please contact Administrator"  }`|
 
  ___
+# UI Integration
+
+You can find sample implementation for both customer & agent UI in this repository. Please follow the below instructions to successfully integrate the widget into your UI.
 
 ## HTML & CSS
 
-Copy & Insert the whole div with class named "widget__box", into your web application index.html file.
+Copy & Embed the whole div with class named "widget__box", into your web application index.html file.
 ```
 <div class="widget__box">...</div>
 ```
 The classes are named uniquely so that it doesn't interfere with your other styles.
 
-Please include our styles.css as a link in your HTML ```head``` tag , or copy everything in styles.css and place it in a style tag in the HTML ```<head>``` tag of your HTML page.
+Please include our style.css as a link in your HTML `head` tag , or copy everything in styles.css and place it in a style tag in the HTML `<head>` tag of your HTML page.
 
 ## JS
-You can choose to go with your own approach on handling the HTTP requests. 
-Here, we have handled it with [Axios](https://github.com/axios/axios), delivered on CDN
 
-You need to fill in your provided Credentials here to successfully send requests to the server.
+Please include our script.js as a link in your HTML `body` tag, or copy everything in script.js and place it in a script tag inside your `body` tag of your HTML page. 
+
+You need to fill in your provided Credentials in the JS to successfully send requests to the server.
+
+For both the Customer side and Agent side you need to provide `apiUrl, apiVer, tenantID`. For Agent side, you need the API key as well.
 
 ```
 const apiUrl = '.....';
 const apiVer = '.....';
 const tenantID = '.....';
+const apiKey = '.....';
 ```
 
-If you decide to go your own approach on handling the HTTP requests, you should place your code in this function
+We have handled the HTTP requests with [Axios](https://github.com/axios/axios), delivered on CDN.
 
-``
-const sendData = () => { 
-	// Your code here
-}
-``
+You can choose to go with your own approach on handling the HTTP requests. 
 
 **Salesforce Integration**
 
 You can integrate with salesforce as a Lightning Web Component. 
 
-Please see the reference implementation in the salesforce folder.
+Please see the reference implementation in the salesForceImpl.js file.
