@@ -263,7 +263,7 @@ Use our login API to generate an authorization token with the registered email &
  ___
 # UI Integration
 
-You can find sample implementation for both customer & agent UI in this repository. Please follow the below instructions to successfully integrate the widget into your UI.
+You can find Reference implementation for both Customer & Agent UI in this repository. Please follow the below instructions to successfully integrate the widget into your UI.
 
 ## HTML & CSS
 
@@ -281,7 +281,7 @@ Please include our script.js as a link in your HTML `body` tag, or copy everythi
 
 You need to fill in your provided Credentials in the JS to successfully send requests to the server.
 
-For both the Customer side and Agent side you need to provide `apiUrl, apiVer, tenantID`. For Agent side, you need the API key as well.
+For both the Customer side and Agent side you need to provide `apiUrl, apiVer, tenantID`. For Agent side, you need the `apiKey` as well.
 
 ```
 const apiUrl = '.....';
