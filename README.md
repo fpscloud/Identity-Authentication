@@ -18,7 +18,7 @@ This service consists of various REST API endpoints (refer below sections for de
 	* Obtain API key, required to call the service APIs. It will be the company's responsibility to keep this information secure and not share it with anyone. In case of compromise, the API key can be refreshed on-demand (via refresh API). As a best practice, we recommend you to refresh the API key periodically.
 * Identity Auth Configuration
 	* Set up the passcode configuration. The system allows two passcode modes - manual setup or system generated (default). 
-	* In case of system generated mode, the desired length of the passcode can be setup
+	* In case of system generated mode, the desired length of the passcode can be setup.
 	* In case of manual mode, the system relies on the Customer (via the customer facing application) to supply the passcode in the API to establish the trust flow.
 * Customer facing UI Implementation *(Please refer to the below sections for the sample reference code.)*
 	* Implement the customer facing screen (company's website or app) and integrate it with the "post" API to retrieve the generated (system generated mode) the one time passcode. 
