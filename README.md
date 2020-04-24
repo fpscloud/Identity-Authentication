@@ -324,4 +324,4 @@ const apiKey = '.....';
 
 **Salesforce Integration**
 
-Please see the reference implementation in the `salesForceImpl.js` file, to integrate with salesforce as a Lightning Web Component.
+Please see the reference implementation in the `Sales-Force` folder, to integrate with Salesforce as a Lightning Web Component.
