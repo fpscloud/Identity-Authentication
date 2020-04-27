@@ -1,27 +1,28 @@
+const form = document.querySelector('#agentForm');
+
+// Pass Key Elements
 const passKey = document.querySelector('#passKey');
 const passKeyError = document.querySelector('.passKey__error');
 
+// Button Container & Elements
 const pass_phraseContainer = document.querySelector('#widget__phrase-container');
-
-const form = document.querySelector('#agentForm');
 const message = document.querySelector('.widget__message');
 
+// Function Declration. This Function clears the Form Submit Message
 let timeOut;
-
 
 // API Details
 const apiUrl = '';
 const apiVer = '';
 const tenantID = '';
 const apiKey = '';
-
 const URL = `${apiUrl}/${apiVer}/${tenantID}`
 
 
 // Form Submit Message
 const showMessage = (type, err) => {
 
-    console.log(type, err);
+    //console.log(type, err);
     message.removeChild(message.childNodes[0]);
     let div = document.createElement('div');
     let img = document.createElement('img');
@@ -31,8 +32,9 @@ const showMessage = (type, err) => {
         div.appendChild(img);
         div.appendChild(text);
     } else if (type == "error") {
+        const data = err.join(', ');
         img.src = "error.png";
-        const text = document.createTextNode(`${err}`);
+        const text = document.createTextNode(`${data}`);
         div.appendChild(img);
         div.appendChild(text);
     }
@@ -57,19 +59,19 @@ const getData = (event) => {
             'x-api-key': apiKey
         }
     }).then(response => {
-        console.log(response.data);
+        //console.log(response.data);
         const passPh = response.data.pass_phrase;
         pass_phraseContainer.innerText = passPh;
         showMessage("success", "none");
     }).catch(err => {
-        console.log(err.response);
-        let msg = '';
-        msg = err.response.data.message;
-        showMessage("error", msg);
+        let errArr = err.response.data.message;
+        
+        Object.values(errArr).forEach(value => {
+            //console.log(value);
+            showMessage("error", value);
+        })
     });
 };
-
-form.addEventListener('submit', getData);
 
 
 //Error Handling
@@ -88,19 +90,10 @@ const onBlur = (field, errField, type, min, max) => {
     }
 }
 
-
 const onFocus = (errField) => {
     errField.style.visibility = "hidden";
     errField.innerText = "";
 }
-
-
-passKey.addEventListener('blur', function () {
-    onBlur(passKey, passKeyError, "number", 4, 10);
-})
-passKey.addEventListener('focus', function () {
-    onFocus(passKeyError);
-})
 
 
 //Function to not let the user type in letters
@@ -120,6 +113,17 @@ function setInputFilter(textbox, inputFilter) {
         });
     });
 }
+
+// Init
 setInputFilter(passKey, function (value) {
     return /^-?\d*$/.test(value);
 });
+
+passKey.addEventListener('blur', function () {
+    onBlur(passKey, passKeyError, "number", 4, 10);
+});
+passKey.addEventListener('focus', function () {
+    onFocus(passKeyError);
+});
+
+form.addEventListener('submit', getData);

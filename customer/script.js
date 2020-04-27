@@ -1,30 +1,34 @@
-const passPhrase = document.querySelector('#passPhrase');
+const form = document.querySelector('#clientForm');
+
+// Pass Key Elements
 const passKey = document.querySelector('#passKey');
 const passKeyError = document.querySelector('.passKey__error');
+
+// Pass Code Elements
+const passPhrase = document.querySelector('#passPhrase');
 const passPhraseError = document.querySelector('.passPhrase__error');
-
-const pass_phraseContainer = document.querySelector('#widget__phrase-container');
 const pass_control_container = document.querySelector('#pass_control_container');
-const button = document.querySelector('#button');
 
-const form = document.querySelector('#clientForm');
+// Button Container & Elements
+const pass_phraseContainer = document.querySelector('#widget__phrase-container');
+const button = document.querySelector('#button');
 const message = document.querySelector('.widget__message');
 
-let configuration = {};
+// Function Declration. This Function clears the Form Submit Message
 let timeOut;
 
+// Pass Code Config retrieved from Config API
+let configuration = {};
 
 // API Details
 const apiUrl = '';
 const apiVer = '';
 const tenantID = '';
-
 const URL = `${apiUrl}/${apiVer}/${tenantID}`
 
 
 // Form Submit Message
 const showMessage = (type, err) => {
-
     //console.log(type, err);
     message.removeChild(message.childNodes[0]);
     let div = document.createElement('div');
@@ -34,13 +38,15 @@ const showMessage = (type, err) => {
         const text = document.createTextNode("Form Submitted Successfully");
         div.appendChild(img);
         div.appendChild(text);
+        message.appendChild(div);
+        message.style.visibility = "visible";
     } else if (type == "error") {
+        const data = err.join(', ');
         img.src = "error.png";
-        const text = document.createTextNode(`${err}`);
+        const text = document.createTextNode(`${data}`);
         div.appendChild(img);
         div.appendChild(text);
     }
-
     message.appendChild(div);
     message.style.visibility = "visible";
     timeOut = setTimeout(function () {
@@ -49,13 +55,32 @@ const showMessage = (type, err) => {
 }
 
 
+// If PassCode is Manual
+const passCodeIsManual = () => {
+    const passPhraseType = configuration['pass_pharse_allowed_characters'];
+    const passPhraseLength = configuration['pass_phrase_length'];
+    if (passPhraseType === 'numeric') {
+        passPhrase.setAttribute('placeholder', `Please enter number between 3 and ${passPhraseLength} characters length`);
+        setInputFilter(passPhrase, function (value) {
+            return /^-?\d*$/.test(value);
+        });
+    } else if (passPhraseType === 'alphabets') {
+        passPhrase.setAttribute('placeholder', `Please enter text between 3 and ${passPhraseLength} characters length`);
+    } else if (passPhraseType === 'alphanumeric') {
+        passPhrase.setAttribute('placeholder', `Pass-code must be between 3 and ${passPhraseLength} characters length`);
+    }
+}
+
+
 // Check Passcode Config
 const checkConfiguration = (configuration) => {
-
     const passPhraseCondition = configuration['pass_phrase'];
+    const passPhraseLength = configuration['pass_phrase_length'];
     if (passPhraseCondition === 'system') {
-        button.innerText = 'Generate Pass Code';
+        button.innerText = 'Generate Pass-Code';
     } else if (passPhraseCondition === 'manual') {
+        passCodeIsManual();
+        passPhrase.setAttribute('maxlength', `${passPhraseLength}`);
         button.innerText = 'Submit';
         pass_control_container.classList.remove('hide');
     }
@@ -65,12 +90,12 @@ const checkConfiguration = (configuration) => {
 
 // Get Passcode Config
 const getConfiguration = () => {
-
     axios.get(
         `${URL}/identity/passcode/config`
     ).then(response => {
         configuration = JSON.parse(response.data.tenant_config_details);
         checkConfiguration(configuration);
+        //console.log(configuration);
     }).catch(err => {
         console.log(err);
     });
@@ -79,11 +104,9 @@ const getConfiguration = () => {
 
 // Form Submit
 const sendData = (event) => {
-
     event.preventDefault();
     clearTimeout(timeOut);
     pass_phraseContainer.innerText = "";
-
     const passPhraseCondition = configuration['pass_phrase'];
     axios.post(
         `${URL}/identity/passcode`, {
@@ -91,28 +114,24 @@ const sendData = (event) => {
             "pass_phrase": `${passPhrase.value}`,
         }
     ).then(response => {
-        const passPh = response.data.data.pass_phrase;
-        pass_phraseContainer.innerText = passPh;
+        if (passPhraseCondition === 'system') {
+            const passPh = response.data.data.pass_phrase;
+            pass_phraseContainer.innerText = passPh;
+        }
         showMessage("success", "none");
     }).catch(err => {
-        //console.log(err.response);
-        let msg = '';
-        if (err.response.status === 400) {
-            msg = err.response.data.errors.key;
-        } else {
-            msg = err.response.data.message;
-        }
-        showMessage("error", msg);
+        let errArr = err.response.data.message;
+
+        Object.values(errArr).forEach(value => {
+            //console.log(value);
+            showMessage("error", value);
+        })
     });
 };
 
-form.addEventListener('submit', sendData);
-getConfiguration();
 
-
-//Error Handling
+// Error Handling
 const onBlur = (field, errField, type, min, max) => {
-
     let val = field.value;
     if (val != '') {
         let length = val.toString().length;
@@ -132,23 +151,7 @@ const onFocus = (errField) => {
     errField.innerText = "";
 }
 
-
-passKey.addEventListener('blur', function () {
-    onBlur(passKey, passKeyError, "number", 4, 10);
-})
-passKey.addEventListener('focus', function () {
-    onFocus(passKeyError);
-})
-
-passPhrase.addEventListener('blur', function () {
-    onBlur(passPhrase, passPhraseError, "text", 6, 20);
-})
-passPhrase.addEventListener('focus', function () {
-    onFocus(passPhraseError);
-})
-
-
-//Function to not let the user type in letters
+// Function to not let the user type in letters
 function setInputFilter(textbox, inputFilter) {
     ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function (event) {
         textbox.addEventListener(event, function () {
@@ -165,6 +168,25 @@ function setInputFilter(textbox, inputFilter) {
         });
     });
 }
+
+// Init
+getConfiguration();
+
 setInputFilter(passKey, function (value) {
     return /^-?\d*$/.test(value);
 });
+
+passKey.addEventListener('blur', function () {
+    onBlur(passKey, passKeyError, "number", 4, 10);
+});
+passKey.addEventListener('focus', function () {
+    onFocus(passKeyError);
+});
+passPhrase.addEventListener('blur', function () {
+    onBlur(passPhrase, passPhraseError, "text", 3, configuration["pass_phrase_length"]);
+});
+passPhrase.addEventListener('focus', function () {
+    onFocus(passPhraseError);
+});
+
+form.addEventListener('submit', sendData);
