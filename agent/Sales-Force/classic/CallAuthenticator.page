@@ -1,0 +1,195 @@
+<apex:page sidebar="false" showHeader="false">
+    <html>
+
+    <head>
+
+        <style>
+        * {
+                box-sizing: border-box;
+            }
+            
+            div {
+                padding-right: 10px;
+                padding-left: 10px;
+            }
+            
+            input[type=text] {
+                width: 25%;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 1px;
+                resize: vertical;
+            }
+            
+            #PassPhrase {
+                width: 14%;
+           		margin-left: 3%;
+                padding: 10px;
+                border: 0px solid #ccc;
+                border-radius: 1px;
+                resize: vertical;
+                font-size: x-large;
+                font-weight: bold;
+            }
+            
+            label {
+                padding: 8px 12px 12px 0;
+                display: inline-block;
+            }
+            
+            input[type=button] {
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 90%;
+                background: #0492C2;
+                color: white;
+                padding: 12px 20px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                /
+            }
+            
+            input[type=button]:hover {
+                background: #047fc2;
+            }
+            
+            .container {
+                border-radius: 5px;
+                background-color: #f2f2f2;
+                padding: 20px;
+            }
+            
+            .col-25 {
+                float: left;
+                width: 25%;
+                margin-top: 6px;
+            }
+            
+            .col-75 {
+                float: left;
+                width: 75%;
+                margin-top: 6px;
+            }
+            
+            .title {
+                font-size: medium;
+            }
+            .passcode{
+            font-weight: bold;
+            padding-bottom: 0;
+            }
+             .oneTimeId{
+            font-weight: bold;
+            }
+        }
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+        @media screen and (max-width: 600px) {
+            .col-25,
+            .col-75,
+            input[type=button] {
+                width: 100%;
+                margin-top: 0;
+            }
+        }
+        </style>
+    </head>
+
+    <body onload="initInput()">
+        <div>
+            <h1 class="title">Call Authenticator</h1>
+            <p>
+                Authenticate yourself to your customer
+            </p>
+            <form>
+                <div>
+                    <label for="Pass-Key" class="oneTimeId">Customer's One Time ID</label><br></br>
+                    <input type="text" id="PassKey" name="PassKey" value="Test" onchange="handlePassKeyChange();" />
+                    <input type="button" id="Button" class="button" value="Submit" onclick="handlePassClick();" /><br></br>
+                    <p>
+                        *Ask the customer for their "One Time ID" and type it into the box above
+                    </p>
+                </div>
+
+                <div>
+                    <label for="PassPhrase" class="passcode">SECRET ONE TIME PASSCODE</label><br/>
+                    <span>
+                        This code has been generated for the user in the front end.
+                        <input type="text" id="PassPhrase" disabled="disabled" />
+                    </span><br/>
+                    <span>
+                        Read this back to the customer.
+                    </span>
+
+                </div>
+            </form>
+        </div>
+    </body>
+
+    <script type="text/javascript">
+        const apiUrl = '';
+        const apiVer = '';
+        const tenantID = '';
+        const apiKey = '';
+        var inputKey = document.getElementById("PassKey");
+        var outputPhrase = document.getElementById("PassPhrase");
+        var finalResponse;
+        var passKey = '******';
+        var passPhrase = "";
+        var error;
+
+        // Initialize
+        function initInput() {
+            inputKey.value = passKey;
+            outputPhrase.value = passPhrase;
+        }
+
+        // Change event
+        function handlePassKeyChange() {
+            passKey = document.getElementById("PassKey").value;
+        }
+
+        function handlePassClick() {
+            // Reset error panel
+            if (typeof error != 'undefined') {
+                error = undefined;
+            }
+
+            // Fetch pass phrase
+            fetch(apiUrl + '/' + apiVer + '/' + tenantID + '/identity/passcode/' + passKey, {
+                    method: 'GET',
+                    headers: {
+                        'x-api-key': apiKey
+                    }
+                }).then(response => {
+                    if (!response.ok) {
+                        error = response;
+                        console.log(error);
+                    }
+                    return response.json();
+                    console.log(response);
+                })
+                .then(jsonResponse => {
+                    if (jsonResponse.pass_phrase != undefined) {
+                        passPhrase = JSON.stringify(jsonResponse.pass_phrase).replace(/"/g, "");
+                    } else {
+                        passPhrase = "Error: No Pass-Phrase Found."
+                    }
+                    console.log(passPhrase)
+                    document.getElementById("PassPhrase").value = passPhrase;
+                })
+                .catch(error => {
+                    error = error;
+                    passPhrase = undefined;
+                    document.getElementById("PassPhrase").value = error;
+                });
+        }
+    </script>
+
+    </html>
+</apex:page>

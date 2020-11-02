@@ -1,24 +1,9 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    background-color: #f9fafb;
-    font-family: 'Open Sans', sans-serif;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    margin: 0;
-}
-
 .widget__box {
     background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    width: 600px;
+    border-radius: 0px;
+    box-shadow: 0 10px 30px -7px rgba(0, 0, 0, 0.35);
+    position: relative;
+    height: 100%;
 }
 
 .widget__box #clientForm {
@@ -39,6 +24,11 @@ body {
     padding-bottom: 20px;
     position: relative;
     width: 100%;
+
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .widget__form-control.error .widget__input {
@@ -61,9 +51,6 @@ body {
 
 .widget__form-control small {
     color: #e74c3c;
-    position: absolute;
-    bottom: 0;
-    left: 0;
     visibility: hidden;
 }
 
@@ -71,27 +58,19 @@ body {
     visibility: visible;
 }
 
-.widget__box button {
-    background-color: #0066b3;
-    border: 2px solid #0066b3;
-    padding: 13px 29px;
-    font-size: 14px;
-    color: #fff;
-    text-transform: uppercase;
-    cursor: pointer;
-}
+
 
 .widget__form-control:nth-child(4) {
     display: flex;
     align-items: center;
-        justify-content: space-between;
+    justify-content: space-between;
 
 }
 
 #widget__phrase-container {
-    font-size: 40px;
+    font-size: 48px;
     font-weight: bold;
-    color: #0066b3;
+    color: #065492;
 }
 
 .widget__box.loading {
@@ -112,8 +91,9 @@ body {
 }
 
 .widget__message {
-    visibility: hidden;
-    height: 50px;
+    height: 70px;
+    display: flex;
+    transition: visibility 0s linear 300ms;
 }
 
 .widget__message div {
@@ -170,4 +150,108 @@ body {
 
 .hide {
     display: none !important;
+}
+
+.titleHead {
+    margin-top: 150px;
+    margin-bottom: 50px;
+    color: #222;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.titleHead h6 {
+    font-size: 200%;
+    color: #065492;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+
+
+.oneTimeID {
+    text-align: center;
+    color: #065492;
+    font-weight: 600;
+    font-size: 24px;
+    margin: 20px 0;
+}
+
+.oneTimeLabel {
+    text-align: center;
+    color: #222;
+    padding: 5px 30px 20px;
+}
+
+.rightBox {
+    padding: 30px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #222;
+    transition: opacity 0s linear 300ms;
+    height: 100%;
+}
+
+
+
+.rightBox div {
+    padding: 5px 30px;
+    text-align: center;
+}
+
+
+
+.confirmationIDBox {
+    padding: 50px 100px;
+    color: #222;
+    text-align: center;
+}
+
+#createdID {
+    font-weight: bold;
+    font-size: 48px;
+    color: #065492;
+    margin: 10px 0 30px;
+}
+
+#finaleBox {
+    border-radius: 0px;
+    box-shadow: 0 10px 30px -7px rgba(0, 0, 0, 0.35);
+    text-align: center;
+    padding: 50px;
+    margin-bottom: 30px;
+    color: #222;
+}
+
+#finaleBox h6 {
+    color: #065492;
+    font-weight: 600;
+    font-size: 24px;
+}
+
+@media (max-width: 992px) {
+    #contentBox_right {
+        margin-top: 50px;
+    }
+
+    .widget__box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .titleHead {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .texter {
+        padding-left: 50px;
+        padding-right: 50px;
+    }
 }

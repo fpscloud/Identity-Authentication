@@ -14,6 +14,16 @@ const pass_phraseContainer = document.querySelector('#widget__phrase-container')
 const button = document.querySelector('#button');
 const message = document.querySelector('.widget__message');
 
+
+
+const confirmationIDBox = document.querySelector('#confirmationIDBox');
+const createdID = document.querySelector('#createdID');
+const rightBox = document.querySelector('#rightBox');
+const finaleBox = document.querySelector('#finaleBox');
+const contentBox_left = document.querySelector('#contentBox_left');
+const contentBox_right = document.querySelector('#contentBox_right');
+
+
 // Function Declration. This Function clears the Form Submit Message
 let timeOut;
 
@@ -29,8 +39,6 @@ const URL = `${apiUrl}/${apiVer}/${tenantID}`
 
 // Form Submit Message
 const showMessage = (type, err) => {
-    //console.log(type, err);
-    message.removeChild(message.childNodes[0]);
     let div = document.createElement('div');
     let img = document.createElement('img');
     if (type == "success") {
@@ -38,20 +46,19 @@ const showMessage = (type, err) => {
         const text = document.createTextNode("Form Submitted Successfully");
         div.appendChild(img);
         div.appendChild(text);
-        message.appendChild(div);
-        message.style.visibility = "visible";
     } else if (type == "error") {
         const data = err.join(', ');
-        img.src = "error.png";
         const text = document.createTextNode(`${data}`);
-        div.appendChild(img);
         div.appendChild(text);
+        passKeyError.appendChild(text);
+        passKeyError.style.visibility = "visible";
+        pass_phraseContainer.innerText = "XXXX";
     }
-    message.appendChild(div);
+
     message.style.visibility = "visible";
     timeOut = setTimeout(function () {
-        message.style.visibility = "hidden";
-    }, 3000);
+        passKeyError.style.visibility = "hidden";
+    }, 5000);
 }
 
 
@@ -77,7 +84,7 @@ const checkConfiguration = (configuration) => {
     const passPhraseCondition = configuration['pass_phrase'];
     const passPhraseLength = configuration['pass_phrase_length'];
     if (passPhraseCondition === 'system') {
-        button.innerText = 'Generate Pass-Code';
+        button.innerText = 'Create ID';
     } else if (passPhraseCondition === 'manual') {
         passCodeIsManual();
         passPhrase.setAttribute('maxlength', `${passPhraseLength}`);
@@ -95,7 +102,6 @@ const getConfiguration = () => {
     ).then(response => {
         configuration = JSON.parse(response.data.tenant_config_details);
         checkConfiguration(configuration);
-        //console.log(configuration);
     }).catch(err => {
         console.log(err);
     });
@@ -116,7 +122,11 @@ const sendData = (event) => {
     ).then(response => {
         if (passPhraseCondition === 'system') {
             const passPh = response.data.data.pass_phrase;
+            rightBox.style.opacity = "1";
             pass_phraseContainer.innerText = passPh;
+            form.style.display = "none";
+            createdID.innerText = `${passKey.value}`;
+            confirmationIDBox.style.display = "block";
         }
         showMessage("success", "none");
     }).catch(err => {
@@ -128,6 +138,13 @@ const sendData = (event) => {
         })
     });
 };
+
+
+function finaleEvent() {
+    contentBox_left.style.display = "none";
+    contentBox_right.style.display = "none";
+    finaleBox.style.display = "block"
+}
 
 
 // Error Handling
